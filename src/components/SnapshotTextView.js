@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -12,34 +13,37 @@ export default class SnapshotTextView extends Component {
   constructor( props ) {
     super( props );
     this.state = {
-      text: '',
+      text    : '',
+      fontSize: 14
     }
   }
 
   render = () => {
+    const {text, fontSize, fontColor} = this.state;
+
     return (
       <View pointerEvents="none" style={styles.container}>
         <View ref={(comp) => { this.shadowView = comp; } }>
           <Image style={[styles.imageEditorContainer]}>
-            <Text >{this.state.text}</Text>
+            <Text style={{fontSize: fontSize, color: fontColor}}>{text}</Text>
           </Image>
         </View>
       </View>
     );
   };
 
-  imagify = ( text ) => {
+  imagify = ( {text, fontSize, fontColor}, callback ) => {
     const that = this;
-    that.setState( { text: text }, that.queueSnapshot );
+    that.setState( { text, fontSize, fontColor }, _.partial( that.queueSnapshot, callback ) );
   };
 
-  queueSnapshot = () => {
+  queueSnapshot = ( callback ) => {
     setTimeout( () => {
-      this.takeSnapshot()
+      this.takeSnapshot( callback )
     }, 200 )
   };
 
-  takeSnapshot = () => {
+  takeSnapshot = ( callback ) => {
     const that = this;
     RNViewShot.takeSnapshot( that.shadowView, {
         format : "jpeg",
@@ -47,7 +51,8 @@ export default class SnapshotTextView extends Component {
       } )
       .then(
         uri => {
-          console.log( "Image saved to", uri )
+          console.log( "Image saved to", uri );
+          callback( uri );
         },
         error => console.error( "Oops, snapshot failed", error )
       );

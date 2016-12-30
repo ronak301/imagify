@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import AutoGrowTextInput from '../blocks/AutoGrowTextInput';
 import SnapshotTextView from '../components/SnapshotTextView';
+import {Actions} from 'react-native-router-flux';
 
 export default class Editor extends Component {
 
@@ -45,15 +46,13 @@ export default class Editor extends Component {
       return;
     }
 
-    this.snapshotView.imagify( inputText );
+    this.snapshotView.imagify( {text: inputText}, imageUri =>  Actions.previewPage({imageUri, inputText}));
   }
-
 }
 
 const styles = StyleSheet.create( {
   container          : {
     flex          : 1,
-    justifyContent: 'space-between'
   },
   textEditor         : {
     fontSize: 18

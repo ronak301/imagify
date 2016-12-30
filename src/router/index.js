@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Platform } from 'react-native';
 import { Actions, Scene, Router as RouterWithRedux } from 'react-native-router-flux';
 import InputPage from '../pages/InputPage';
+import PreviewPage from '../pages/PreviewPage';
 
 function getSceneDimension( props, computedProps ) {
   if ( computedProps.isActive ) {
@@ -32,6 +33,7 @@ export default function Router() {
       titleStyle={styles.title}>
       <Scene key="root">
         <Scene key="inputPage" component={InputPage} hideTabBar hideNavBar/>
+        <Scene key="previewPage" component={PreviewPage} hideTabBar hideNavBar/>
       </Scene>
     </RouterWithRedux>
   );
