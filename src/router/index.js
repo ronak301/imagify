@@ -33,7 +33,7 @@ export default function Router() {
       titleStyle={styles.title}>
       <Scene key="root">
         <Scene key="inputPage" component={InputPage} hideTabBar hideNavBar/>
-        <Scene key="previewPage" component={PreviewPage} hideTabBar hideNavBar/>
+        <Scene key="previewPage" component={PreviewPage} title="Preview" hideTabBar hideNavBar={false}/>
       </Scene>
     </RouterWithRedux>
   );

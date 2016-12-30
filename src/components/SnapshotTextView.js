@@ -5,6 +5,7 @@ import {
   Text,
   View,
   Image,
+  Dimensions,
 } from 'react-native';
 import RNViewShot from "react-native-view-shot";
 
@@ -19,12 +20,12 @@ export default class SnapshotTextView extends Component {
   }
 
   render = () => {
-    const {text, fontSize, fontColor} = this.state;
+    const {text, fontSize, fontColor, backgroundColor} = this.state;
 
     return (
       <View pointerEvents="none" style={styles.container}>
         <View ref={(comp) => { this.shadowView = comp; } }>
-          <Image style={[styles.imageEditorContainer]}>
+          <Image style={[styles.imageEditorContainer, {backgroundColor}]}>
             <Text style={{fontSize: fontSize, color: fontColor}}>{text}</Text>
           </Image>
         </View>
@@ -32,9 +33,9 @@ export default class SnapshotTextView extends Component {
     );
   };
 
-  imagify = ( {text, fontSize, fontColor}, callback ) => {
+  imagify = ( {text, fontSize, fontColor, backgroundColor}, callback ) => {
     const that = this;
-    that.setState( { text, fontSize, fontColor }, _.partial( that.queueSnapshot, callback ) );
+    that.setState( { text, fontSize, fontColor, backgroundColor }, _.partial( that.queueSnapshot, callback ) );
   };
 
   queueSnapshot = ( callback ) => {
@@ -63,14 +64,10 @@ export default class SnapshotTextView extends Component {
 const styles = StyleSheet.create( {
   container           : {
     opacity: 0,
-    padding: 16
   },
   imageEditorContainer: {
-    height        : 150,
-    width         : 300,
-    borderRadius  : 4,
-    borderWidth   : 1,
-    borderColor   : 'black',
+    height        : Dimensions.get( 'window' ).width,
+    width         : Dimensions.get( 'window' ).width,
     alignItems    : 'center',
     justifyContent: 'center'
   }

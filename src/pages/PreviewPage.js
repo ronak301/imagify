@@ -9,6 +9,7 @@ import {
   View,
   Image,
   Slider,
+  Dimensions,
   TouchableHighlight
 } from 'react-native';
 import AutoGrowTextInput from '../blocks/AutoGrowTextInput';
@@ -19,9 +20,10 @@ export default class PreviewPage extends Component {
   constructor( props ) {
     super( props );
     this.state = {
-      fontSize  : 14,
-      fontColor : 'black',
-      previewUri: props.imageUri
+      fontSize       : 14,
+      fontColor      : 'black',
+      backgroundColor: 'rgb(250,250,250)',
+      previewUri     : props.imageUri
     }
   }
 
@@ -30,7 +32,7 @@ export default class PreviewPage extends Component {
     return (
       <View style={styles.container}>
 
-        <Image style={styles.previewImage} source={{uri: previewUri}}/>
+        <Image style={styles.previewImage} source={{uri: previewUri}} resizeMode={'center'}/>
 
         {this.renderTexSizer()}
 
@@ -61,9 +63,9 @@ export default class PreviewPage extends Component {
   };
 
   renderColorPicker = () => {
-    const colors = [ 'blue', 'red', 'green', 'yellow', 'black' ];
+    const colors = [ 'black', 'blue', 'red', 'green', 'cyan' ];
     const pickers = _.map( colors, color =>
-      <TouchableHighlight onPress={()=> this.setState({fontColor: color}, this.updateSnapshot)}>
+      <TouchableHighlight underlayColor={'transparent'} onPress={()=> this.setState({fontColor: color}, this.updateSnapshot)}>
         <View style={[styles.colorPicker, {backgroundColor: color}]}/>
       </TouchableHighlight>
     );
@@ -77,9 +79,9 @@ export default class PreviewPage extends Component {
 
   updateSnapshot = () => {
     const {inputText} = this.props;
-    const { fontSize, fontColor } = this.state;
+    const { fontSize, fontColor, backgroundColor } = this.state;
 
-    this.snapshotView.imagify( { text: inputText, fontSize, fontColor }, previewUri => this.setState( { previewUri } ) );
+    this.snapshotView.imagify( { text: inputText, fontSize, fontColor, backgroundColor }, previewUri => this.setState( { previewUri } ) );
   };
 
   shareImage = () => {
@@ -93,16 +95,16 @@ const styles = StyleSheet.create( {
     alignItems: 'center',
   },
   previewImage        : {
-    height        : 150,
-    width         : 300,
-    alignItems    : 'center',
-    justifyContent: 'center'
+    height: Dimensions.get( 'window' ).width,
+    width : Dimensions.get( 'window' ).width,
   },
   textSizeSlider      : {
-    width: 300,
+    marginTop: 16,
+    width    : 300,
   },
   colorPickerContainer: {
-    flexDirection: 'row'
+    marginTop    : 16,
+    flexDirection: 'row',
   },
   colorPicker         : {
     width           : 50,
