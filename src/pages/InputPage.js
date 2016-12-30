@@ -24,7 +24,7 @@ export default class Editor extends Component {
     return (
       <View style={styles.container}>
 
-        <ScrollView contentContainerStyle={styles.container} style={{flex:1}} keyboardDismissMode='on-drag' keyboardShouldPersistTaps={true}>
+        <ScrollView style={[styles.container, {flexGrow: 1}]} keyboardDismissMode='on-drag' keyboardShouldPersistTaps={true}>
           <View style={styles.textEditorContainer}>
             <AutoGrowTextInput style={styles.textEditor} autoFocus onChangeText={inputText => this.setState({inputText})}
                                placeholder="Write Something"/>
@@ -46,20 +46,20 @@ export default class Editor extends Component {
     if ( !inputText ) {
       return;
     }
-
     this.snapshotView.imagify( { text: inputText }, imageUri => Actions.previewPage( { imageUri, inputText } ) );
   }
 }
 
 const styles = StyleSheet.create( {
   container          : {
-    flex: 1,
+    flex: 1
   },
   textEditor         : {
     fontSize: 18
   },
   textEditorContainer: {
-    margin: 16,
+    flex:1,
+    margin: 16
   },
   bottomContainer    : {
     position       : 'absolute',

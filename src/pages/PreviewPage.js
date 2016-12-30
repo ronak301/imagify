@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import AutoGrowTextInput from '../blocks/AutoGrowTextInput';
 import SnapshotTextView from '../components/SnapshotTextView';
+import Icon from '../blocks/icon';
 
 export default class PreviewPage extends Component {
 
@@ -26,6 +27,14 @@ export default class PreviewPage extends Component {
       previewUri     : props.imageUri
     }
   }
+
+  //static renderNavigationBar() {
+  //  return (
+  //    <TouchableHighlight>
+  //      <Icon name="download" color="rgba(2,2,2,0.8)" size={20}/>
+  //    </TouchableHighlight>
+  //  );
+  //}
 
   render() {
     const {previewUri} = this.state;
@@ -50,10 +59,11 @@ export default class PreviewPage extends Component {
 
   renderTexSizer = () => {
     const {fontSize} = this.state;
-
     return (
       <View>
+        <Text style={styles.darkText}>Font Size:  <Text style={styles.lightText}>{this.state.fontSize}</Text></Text>
         <Slider style={styles.textSizeSlider}
+                step={2}
                 value={fontSize}
                 minimumValue={12}
                 maximumValue={40}
@@ -97,9 +107,11 @@ const styles = StyleSheet.create( {
   previewImage        : {
     height: Dimensions.get( 'window' ).width,
     width : Dimensions.get( 'window' ).width,
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0,0.1)'
   },
   textSizeSlider      : {
-    marginTop: 16,
+    marginTop: 8,
     width    : 300,
   },
   colorPickerContainer: {
@@ -126,6 +138,14 @@ const styles = StyleSheet.create( {
     fontSize  : 20,
     color     : 'white',
     fontWeight: '500',
+  },
+  darkText: {
+    marginTop: 20,
+    color: 'rgba(2,2,2, 0.8)'
+  },
+  lightText: {
+    marginTop: 20,
+    color: 'rgb(102, 117, 130)'
   }
 
 } );

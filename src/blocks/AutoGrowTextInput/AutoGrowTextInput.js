@@ -19,7 +19,7 @@ export default class AutoGrowTextInput extends React.Component {
     return (
       <TextInput
         placeholder="Type here..."
-        placeholderColor="#d3d3d3"
+        placeholderColor="rgb(102, 117, 130)"
         underlineColorAndroid="rgba(0,0,0,0)"
         {...textInputProps}
         multiline
