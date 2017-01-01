@@ -15,6 +15,7 @@ import {
 import AutoGrowTextInput from '../blocks/AutoGrowTextInput';
 import SnapshotTextView from '../components/SnapshotTextView';
 import Icon from '../blocks/icon';
+import Share from 'react-native-share';
 
 export default class PreviewPage extends Component {
 
@@ -49,7 +50,7 @@ export default class PreviewPage extends Component {
 
         <SnapshotTextView ref={(comp) => { this.snapshotView = comp } }/>
 
-        <TouchableHighlight onPress={this.shareImage} style={styles.bottomContainer}>
+        <TouchableHighlight onPress={() => this.shareImage(previewUri)} style={styles.bottomContainer}>
           <Text style={styles.bottomViewText}>Share></Text>
         </TouchableHighlight>
 
@@ -73,7 +74,7 @@ export default class PreviewPage extends Component {
   };
 
   renderColorPicker = () => {
-    const colors = [ 'black', 'blue', 'red', 'green', 'cyan' ];
+    const colors = [ '#C63D0F', '#3B3738', '#7E8F7C', '#005A31', '#558C89' ];
     const pickers = _.map( colors, color =>
       <TouchableHighlight underlayColor={'transparent'} onPress={()=> this.setState({fontColor: color}, this.updateSnapshot)}>
         <View style={[styles.colorPicker, {backgroundColor: color}]}/>
@@ -94,7 +95,14 @@ export default class PreviewPage extends Component {
     this.snapshotView.imagify( { text: inputText, fontSize, fontColor, backgroundColor }, previewUri => this.setState( { previewUri } ) );
   };
 
-  shareImage = () => {
+  shareImage = (imageUrl) => {
+    let shareImageBase64 = {
+      title: "React Native",
+      url: imageUrl
+    };
+    setTimeout(() => {
+      Share.open(shareImageBase64);
+    },100);
   }
 
 }

@@ -73,5 +73,9 @@
       <string>SimpleLineIcons.ttf</string>
       <string>Zocial.ttf</string>
     </array>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Used to pick media from gallery</string>
+    <key>CodePushDeploymentKey</key>
+    <string>uXvkkaecDsb9rQIB7MuuQDedyTBhNkLsBRTAe</string>
   </dict>
 </plist>

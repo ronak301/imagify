@@ -24,10 +24,10 @@ export default class Editor extends Component {
     return (
       <View style={styles.container}>
 
-        <ScrollView style={[styles.container, {flexGrow: 1}]} keyboardDismissMode='on-drag' keyboardShouldPersistTaps={true}>
+        <ScrollView style={[styles.container, {marginBottom: 50}]} keyboardDismissMode='on-drag' keyboardShouldPersistTaps={true}>
           <View style={styles.textEditorContainer}>
             <AutoGrowTextInput style={styles.textEditor} autoFocus onChangeText={inputText => this.setState({inputText})}
-                               placeholder="Write Something"/>
+                               placeholder="Write text to convert into image"/>
           </View>
         </ScrollView>
 
@@ -59,6 +59,8 @@ const styles = StyleSheet.create( {
   },
   textEditorContainer: {
     flex:1,
+    paddingTop: 30,
+    paddingBottom: 200,
     margin: 16
   },
   bottomContainer    : {
